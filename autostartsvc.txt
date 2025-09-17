@@ -1,0 +1,20 @@
+# vi /usr/local/bin/check-instana.sh
+
+#!/bin/bash
+LOG=/var/log/check-instana.log
+SERVICE=instana-agent.service
+
+# check unit enabled and active
+if ! systemctl is-enabled --quiet "$SERVICE"; then
+    echo "$(date +'%F %T') - $SERVICE disabled -> enabling" >> "$LOG"
+    systemctl enable "$SERVICE"
+fi
+
+if ! systemctl is-active --quiet "$SERVICE"; then
+    echo "$(date +'%F %T') - $SERVICE not active -> starting" >> "$LOG"
+    systemctl start "$SERVICE"
+fi
+
+# chmod +x /usr/local/bin/check-instana.sh
+# crontab -e 
+* * * * * /usr/local/bin/check-instana.sh

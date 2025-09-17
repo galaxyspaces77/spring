@@ -1,3 +1,5 @@
+==========create script==============
+
 # vi /usr/local/bin/check-instana.sh
 
 #!/bin/bash
@@ -15,6 +17,11 @@ if ! systemctl is-active --quiet "$SERVICE"; then
     systemctl start "$SERVICE"
 fi
 
+============add permission to script==========
+
 # chmod +x /usr/local/bin/check-instana.sh
+
+============add to crontab==============
+
 # crontab -e 
 * * * * * /usr/local/bin/check-instana.sh
